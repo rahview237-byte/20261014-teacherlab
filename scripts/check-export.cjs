@@ -1,0 +1,14 @@
+const fs = require('node:fs');
+const assert = require('node:assert/strict');
+const path = require('node:path');
+const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+const frame = html.match(/<iframe\b[^>]*id="codex-visualization"[^>]*>/);
+assert.ok(frame, 'Export must contain the application frame');
+const sandbox = frame[0].match(/\bsandbox="([^"]*)"/);
+assert.ok(sandbox, 'Keep the frame sandbox');
+const permissions = sandbox[1].split(/\s+/);
+assert.ok(permissions.includes('allow-scripts'), 'Application JavaScript must run');
+assert.ok(permissions.includes('allow-forms'), 'Login submit events require allow-forms');
+assert.ok(!permissions.includes('allow-same-origin'), 'Do not add same-origin access to fix form submission');
+assert.ok(html.includes("form-action 'none'"), 'Keep native network form submission disabled');
+console.log('PASS exported iframe allows local form handlers while retaining isolation');

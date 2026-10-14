@@ -50,16 +50,9 @@ python -m http.server 8080 --bind 127.0.0.1
 
 ## 문서
 
-기존 업로드 폴더 구조를 유지했습니다. 충돌하는 과거 내용보다 **최신 로그인·직접 적립 명세**가 우선합니다.
+기존 기획 문서 폴더는 저장소 정리 과정에서 제거되었습니다. 이력은 [이전 문서 커밋](https://github.com/rahview237-byte/20261014-teacherlab/tree/2f031a1d6dc592dda34572c8ee4e6bd6dd11f742/261012%20%ED%8B%B0%EC%B2%98%EB%9E%A9)에서 확인할 수 있습니다.
 
-- [최신 로그인·직접 적립 명세](261012%20티처랩/docs/login-and-self-praise.md)
-- [PRD](261012%20티처랩/학급경영_칭찬관리_PRD.md)
-- [도메인 정의](261012%20티처랩/docs/domain-model.md)
-- [폴더 구조](261012%20티처랩/docs/folder-structure.md)
-- [구현 Phase·Step 계획](261012%20티처랩/docs/implementation-plan.md)
-- [학기별 칭찬판과 보상](261012%20티처랩/docs/stamp-and-rewards.md)
-- [대시보드 구성](261012%20티처랩/docs/dashboard-layout.md)
-- [Phase 검수 명세](261012%20티처랩/docs/qa/phase-gates.json)
+- [배포 로그인 수정 및 브라우저 검수 결과](docs/login-export-fix.md)
 
 ## 검수 실행
 
@@ -72,7 +65,8 @@ npm test
 또는 다음 명령을 사용합니다.
 
 ```sh
-node "261012 티처랩/docs/qa/check-classroom-demo.cjs" samples/classroom-login.fragment.html
+node scripts/check-classroom-demo.cjs samples/classroom-login.fragment.html
+node scripts/check-export.cjs
 ```
 
 샘플의 실제 로컬 모델을 추출하여 12개 검사를 수행합니다. PIN·권한 분기, 코드 오류, 하루 2회, 취소, 날짜 경계, 일괄 칭찬, 30개 상한, 명단 검증, 비밀번호 재설정, 실패 제한, 모둠·온도 상한을 확인합니다. 브라우저 화면 검수와 서버 보안·동시성 검수는 포함하지 않으며, 통과 결과를 실제 앱 Phase 완료로 취급하지 않습니다.
@@ -84,10 +78,17 @@ index.html                         # 브라우저에서 여는 최신 샘플
 samples/
   classroom-login.fragment.html    # 최신 샘플 편집 원본
   classroom-welcome.fragment.html  # 이전 원형 스탬프 샘플 보관본
-261012 티처랩/
-  학급경영_칭찬관리_PRD.md
-  docs/                            # 설계·계획·검수 문서
+scripts/
+  check-classroom-demo.cjs          # 샘플 로직 12개 검사
+  check-export.cjs                  # 배포 파일 폼 처리 회귀 검사
+docs/login-export-fix.md            # 브라우저 검수 결과
 package.json                       # 의존성 없는 테스트 명령
 ```
 
 `index.html`은 최신 fragment를 독립 실행 가능한 문서로 내보낸 결과입니다. 수정할 때는 원본과 내보낸 결과를 함께 갱신해야 합니다. 이전 샘플은 참고 이력이며 최신 요구의 구현 기준이 아닙니다.
+
+### 배포 후 로그인 버튼이 반응하지 않는 경우
+
+내보낸 iframe에는 `sandbox="allow-scripts allow-forms"`가 필요합니다. `allow-forms`가 빠지면 로그인뿐 아니라 스티커 적립·일괄 칭찬 등 폼의 제출 이벤트도 차단됩니다. 내보내기 도구로 다시 생성했을 때도 이 속성을 유지하고 `npm test`의 배포 파일 회귀 검사를 통과시켜야 합니다. `allow-same-origin`은 추가하지 않으며 CSP의 `form-action 'none'`도 유지합니다. 폼은 자바스크립트에서 처리하고 네트워크 전송을 하지 않습니다.
+
+Netlify 주소가 앱 대신 **Team protection**으로 이동하면 앱 비밀번호 문제와는 별개입니다. 해당 사이트의 배포 접근 보호 설정을 확인해야 합니다. 실제 학생에게 공개하기 전 서버 인증·저장 구현이 필요하며, 이 샘플의 공개 체험 계정을 실제 계정으로 사용하면 안 됩니다.
