@@ -1,0 +1,387 @@
+<div id="classroom-welcome-sample" lang="ko">
+  <style>
+    #classroom-welcome-sample {
+      --cw-bg: light-dark(#f8f9f5, #19211d);
+      --cw-paper: light-dark(#ffffff, #232d27);
+      --cw-ink: light-dark(#243c31, #edf4ed);
+      --cw-soft: light-dark(#68776c, #b1c2b4);
+      --cw-line: light-dark(#dfe7df, #3c4b40);
+      --cw-green: light-dark(#edf5e7, #2c4130);
+      --cw-greentext: light-dark(#487343, #bddba7);
+      --cw-yellow: light-dark(#fff5dc, #473d27);
+      --cw-yellowtext: light-dark(#8b6824, #eed098);
+      --cw-blue: light-dark(#edf2ff, #2c3851);
+      --cw-bluetext: light-dark(#4e6b9c, #bbd0f4);
+      --cw-pink: light-dark(#fbeef2, #472f3c);
+      --cw-pinktext: light-dark(#a45270, #e9b6ca);
+      color: var(--cw-ink); font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      font-size: 15px; line-height: 1.6; width: 100%; color-scheme: light dark;
+    }
+    #classroom-welcome-sample * { box-sizing: border-box; }
+    #classroom-welcome-sample [hidden] { display: none !important; }
+    #classroom-welcome-sample button { font: inherit; color: inherit; }
+    #classroom-welcome-sample .cw-app { background: var(--cw-bg); border: 1px solid var(--cw-line); border-radius: 20px; overflow: clip; }
+    #classroom-welcome-sample .cw-header { background: var(--cw-paper); padding: 19px 30px; padding-right: 105px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1px solid var(--cw-line); }
+    #classroom-welcome-sample .cw-brand { display: flex; align-items: center; gap: 10px; background: none; border: 0; padding: 2px 0; min-height: 40px; font-size: 18px; font-weight: 700; }
+    #classroom-welcome-sample .cw-brandmark { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 11px; background: var(--cw-green); color: var(--cw-greentext); }
+    #classroom-welcome-sample .cw-tag { color: var(--cw-soft); font-size: 12px; white-space: nowrap; }
+    #classroom-welcome-sample .cw-body { padding: 42px 34px 30px; }
+    #classroom-welcome-sample .cw-intro { text-align: center; margin-bottom: 30px; }
+    #classroom-welcome-sample .cw-eyebrow { color: var(--cw-greentext); font-size: 13px; font-weight: 700; letter-spacing: .1em; margin: 0 0 9px; }
+    #classroom-welcome-sample h1 { font-size: clamp(27px, 4vw, 36px); line-height: 1.35; letter-spacing: -.055em; font-weight: 700; margin: 0 0 12px; color: var(--cw-ink); }
+    #classroom-welcome-sample .cw-subtitle { font-size: 14px; color: var(--cw-soft); margin: 0; word-break: keep-all; }
+    #classroom-welcome-sample .cw-rules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px; }
+    #classroom-welcome-sample .cw-rule { background: var(--cw-green); border-radius: 18px; padding: 25px 20px 26px; min-width: 0; }
+    #classroom-welcome-sample .cw-rule:nth-child(2) { background: var(--cw-yellow); }
+    #classroom-welcome-sample .cw-rule:nth-child(3) { background: var(--cw-blue); }
+    #classroom-welcome-sample .cw-rule:nth-child(4) { background: var(--cw-pink); }
+    #classroom-welcome-sample .cw-rule-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 27px; }
+    #classroom-welcome-sample .cw-rule-icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: var(--cw-paper); color: var(--cw-greentext); }
+    #classroom-welcome-sample .cw-rule:nth-child(2) .cw-rule-icon { color: var(--cw-yellowtext); }
+    #classroom-welcome-sample .cw-rule:nth-child(3) .cw-rule-icon { color: var(--cw-bluetext); }
+    #classroom-welcome-sample .cw-rule:nth-child(4) .cw-rule-icon { color: var(--cw-pinktext); }
+    #classroom-welcome-sample .cw-number { color: var(--cw-soft); font-size: 12px; font-weight: 500; }
+    #classroom-welcome-sample .cw-rule h2 { font-size: clamp(19px, 2.5vw, 24px); line-height: 1.4; letter-spacing: -.055em; font-weight: 700; margin: 0 0 9px; color: var(--cw-ink); word-break: keep-all; }
+    #classroom-welcome-sample .cw-rule p { font-size: 13px; line-height: 1.8; margin: 0; color: var(--cw-soft); word-break: keep-all; }
+    #classroom-welcome-sample .cw-divider-label { margin: 31px 0 13px; font-size: 13px; font-weight: 500; color: var(--cw-soft); }
+    #classroom-welcome-sample .cw-menu { display: grid; grid-template-columns: repeat(auto-fit, minmax(145px, 1fr)); gap: 10px; }
+    #classroom-welcome-sample .cw-menu-button { min-width: 0; display: flex; align-items: center; gap: 10px; text-align: left; border: 1px solid var(--cw-line); border-radius: 12px; background: var(--cw-paper); padding: 15px 13px; min-height: 58px; font-size: 14px; font-weight: 500; transition: background .15s, border-color .15s; }
+    #classroom-welcome-sample .cw-menu-button:hover { border-color: var(--cw-greentext); background: var(--cw-green); }
+    #classroom-welcome-sample .cw-menu-button > svg { flex-shrink: 0; color: var(--cw-greentext); }
+    #classroom-welcome-sample .cw-menu-button .cw-arrow { margin-left: auto; color: var(--cw-soft); }
+    #classroom-welcome-sample .cw-footer { text-align: center; color: var(--cw-soft); font-size: 12px; padding: 23px 0 0; margin: 0; }
+    #classroom-welcome-sample .cw-back { border: 1px solid var(--cw-line); border-radius: 10px; background: var(--cw-paper); display: inline-flex; gap: 8px; align-items: center; padding: 10px 14px; min-height: 44px; margin-bottom: 25px; font-size: 13px; }
+    #classroom-welcome-sample .cw-detail-title { font-size: 28px; line-height: 1.4; letter-spacing: -.04em; margin: 0 0 8px; color: var(--cw-ink); }
+    #classroom-welcome-sample .cw-detail-lead { color: var(--cw-soft); margin: 0 0 24px; font-size: 14px; }
+    #classroom-welcome-sample .cw-empty { background: var(--cw-paper); border: 1px solid var(--cw-line); border-radius: 16px; text-align: center; padding: 42px 18px; }
+    #classroom-welcome-sample .cw-empty p { margin: 7px 0 0; color: var(--cw-soft); font-size: 14px; }
+    #classroom-welcome-sample .cw-categories { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 20px; }
+    #classroom-welcome-sample .cw-category { text-align: center; background: var(--cw-paper); border: 1px solid var(--cw-line); border-radius: 12px; padding: 22px 8px; font-size: 14px; }
+    #classroom-welcome-sample .cw-category span { display: block; font-size: 24px; color: var(--cw-greentext); margin-top: 8px; }
+    #classroom-welcome-sample .cw-demo { display:flex; flex-wrap:wrap; align-items:center; gap:12px; font-size:12px; color:var(--cw-soft); margin-bottom:22px; }
+    #classroom-welcome-sample .cw-demo label { display:flex; align-items:center; gap:8px; min-height:44px; }
+    #classroom-welcome-sample .cw-tabs { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px; }
+    #classroom-welcome-sample .cw-tab, #classroom-welcome-sample .cw-action { border:1px solid var(--cw-line); background:var(--cw-paper); border-radius:10px; padding:10px 14px; min-height:44px; }
+    #classroom-welcome-sample .cw-tab[aria-pressed="true"], #classroom-welcome-sample .cw-action-primary { background:var(--cw-green); border-color:var(--cw-greentext); }
+    #classroom-welcome-sample button:disabled { opacity:.45; }
+    #classroom-welcome-sample .cw-board { background:var(--cw-paper); border:1px solid var(--cw-line); border-radius:18px; padding:22px; }
+    #classroom-welcome-sample .cw-board-head { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:20px; }
+    #classroom-welcome-sample .cw-board-head h3 { margin:0; font-size:20px; color:var(--cw-ink); }
+    #classroom-welcome-sample .cw-board-head span { font-size:14px; white-space:nowrap; color:var(--cw-greentext); }
+    #classroom-welcome-sample .cw-stamps { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:12px; list-style:none; padding:0; margin:0; }
+    #classroom-welcome-sample .cw-stamp { display:flex; flex-direction:column; justify-content:center; align-items:center; gap:2px; aspect-ratio:1; border:1px dashed var(--cw-line); border-radius:50%; color:var(--cw-soft); background:var(--cw-bg); font-size:13px; min-width:0; }
+    #classroom-welcome-sample .cw-stamp[data-filled="true"] { color:var(--cw-greentext); border:2px solid var(--cw-greentext); background:var(--cw-green); }
+    #classroom-welcome-sample .cw-stamp b { font-size:22px; font-weight:500; line-height:1; }
+    #classroom-welcome-sample .cw-stamp small { font-size:11px; }
+    #classroom-welcome-sample .cw-actions { display:flex; flex-wrap:wrap; gap:9px; margin-top:20px; }
+    #classroom-welcome-sample .cw-note { color:var(--cw-soft); font-size:13px; margin:16px 0 0; }
+    #classroom-welcome-sample .cw-meter { background:var(--cw-paper); border:1px solid var(--cw-line); border-radius:18px; padding:24px; }
+    #classroom-welcome-sample .cw-degrees { margin:0 0 12px; font-size:40px; font-weight:700; color:var(--cw-greentext); }
+    #classroom-welcome-sample .cw-progress { height:24px; background:var(--cw-bg); border-radius:14px; overflow:hidden; }
+    #classroom-welcome-sample .cw-fill { height:100%; width:0%; background:var(--cw-greentext); transition:width .2s ease; }
+    #classroom-welcome-sample .cw-scale { display:flex; justify-content:space-between; margin-top:7px; color:var(--cw-soft); font-size:12px; }
+    #classroom-welcome-sample .cw-reward-heading { font-size:20px; color:var(--cw-ink); margin:28px 0 5px; }
+    #classroom-welcome-sample .cw-rewards { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:16px; }
+    #classroom-welcome-sample .cw-reward { min-width:0; background:var(--cw-paper); border:1px solid var(--cw-line); border-radius:12px; padding:12px; }
+    #classroom-welcome-sample .cw-reward[data-reached="true"] { border-color:var(--cw-greentext); }
+    #classroom-welcome-sample .cw-reward label { display:flex; justify-content:space-between; flex-wrap:wrap; gap:4px; font-size:14px; margin-bottom:8px; }
+    #classroom-welcome-sample .cw-reward small { color:var(--cw-greentext); font-size:11px; }
+    #classroom-welcome-sample .cw-reward textarea { width:100%; min-height:64px; resize:vertical; border:1px solid var(--cw-line); border-radius:7px; padding:8px; background:var(--cw-bg); color:var(--cw-ink); font:inherit; font-size:16px; }
+    @media (max-width: 650px) {
+      #classroom-welcome-sample .cw-header { padding: 14px 20px; padding-right: 100px; gap: 8px; flex-wrap: wrap; }
+      #classroom-welcome-sample .cw-body { padding: 28px 20px 24px; }
+      #classroom-welcome-sample .cw-rules { grid-template-columns: 1fr; gap: 12px; }
+      #classroom-welcome-sample .cw-rule { padding: 19px 20px; display: grid; grid-template-columns: 46px 1fr; column-gap: 16px; align-items: center; }
+      #classroom-welcome-sample .cw-rule-top { margin: 0; grid-row: span 2; }
+      #classroom-welcome-sample .cw-rule-icon { width: 46px; height: 46px; }
+      #classroom-welcome-sample .cw-number { display: none; }
+      #classroom-welcome-sample .cw-rule h2 { margin-bottom: 4px; font-size: 21px; }
+      #classroom-welcome-sample .cw-rule p br { display: none; }
+      #classroom-welcome-sample .cw-menu, #classroom-welcome-sample .cw-categories { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      #classroom-welcome-sample .cw-stamps { grid-template-columns:repeat(5,minmax(0,1fr)); gap:7px; }
+      #classroom-welcome-sample .cw-board { padding:14px; }
+      #classroom-welcome-sample .cw-stamp b { font-size:18px; }
+      #classroom-welcome-sample .cw-rewards { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    }
+    #classroom-welcome-sample { --cw-red:light-dark(#d9343c,#ff7078); }
+    #classroom-welcome-sample .cw-personal { grid-column:1/-1; margin-top:22px; }
+    #classroom-welcome-sample .cw-personal .cw-stamps { gap:7px; }
+    #classroom-welcome-sample .cw-personal .cw-action { font-size:12px; padding:8px; }
+    #classroom-welcome-sample .cw-menu { grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+    #classroom-welcome-sample .cw-menu-button { min-height:110px; font-size:20px; padding:20px 14px; }
+    #classroom-welcome-sample .cw-meter { text-align:center; }
+    #classroom-welcome-sample .cw-meter .cw-actions { justify-content:center; }
+    #classroom-welcome-sample .cw-degrees { color:var(--cw-red); }
+    #classroom-welcome-sample .cw-thermometer { position:relative; width:160px; height:370px; margin:10px auto; }
+    #classroom-welcome-sample .cw-progress { position:absolute; top:12px; left:25px; width:40px; height:300px; border-radius:24px 24px 0 0; }
+    #classroom-welcome-sample .cw-fill { position:absolute; bottom:0; left:10px; width:20px; height:0; background:var(--cw-red); border-radius:12px 12px 0 0; transition:height .2s; }
+    #classroom-welcome-sample .cw-bulb { position:absolute; top:295px; left:10px; width:70px; height:70px; border-radius:50%; background:var(--cw-bg); }
+    #classroom-welcome-sample .cw-bulb::after { content:''; position:absolute; inset:10px; border-radius:50%; background:var(--cw-red); }
+    #classroom-welcome-sample .cw-stem { position:absolute; top:294px; left:35px; width:20px; height:30px; background:var(--cw-red); }
+    #classroom-welcome-sample .cw-scale { position:absolute; top:12px; left:75px; width:75px; height:300px; margin:0; display:block; }
+    #classroom-welcome-sample .cw-tick { position:absolute; display:flex; align-items:center; gap:8px; transform:translateY(50%); }
+    #classroom-welcome-sample .cw-tick::before { content:''; width:8px; height:1px; background:var(--cw-soft); }
+    #classroom-welcome-sample .cw-tick[data-major=true]::before { width:16px; }
+    @media(max-width:450px) { #classroom-welcome-sample .cw-menu-button { font-size:16px; gap:6px; padding:12px 8px; } }
+    @media (prefers-reduced-motion: reduce) { #classroom-welcome-sample * { transition: none !important; } }
+  </style>
+  <div class="cw-app">
+    <header class="cw-header">
+      <button type="button" class="cw-brand cursor-interaction" data-cw-home aria-label="우리반 학급 규칙 첫 화면">
+        <span class="cw-brandmark"><i data-lucide="sprout" aria-hidden="true"></i></span>우리반
+      </button>
+      <span class="cw-tag">학생 화면 · 미리보기</span>
+    </header>
+    <main class="cw-body">
+      <section data-cw-view="home" aria-label="우리 반 학급 규칙">
+        <div class="cw-intro">
+          <p class="cw-eyebrow">함께 자라는 우리</p>
+          <h1>우리 반 학급 규칙</h1>
+          <p class="cw-subtitle">매일 조금씩 실천하며, 함께 좋은 하루를 만들어요.</p>
+        </div>
+        <div class="cw-rules">
+          <article class="cw-rule">
+            <div class="cw-rule-top"><span class="cw-rule-icon"><i data-lucide="sprout" aria-hidden="true"></i></span><span class="cw-number">첫 번째 약속</span></div>
+            <h2>자주적인 어린이</h2>
+            <p>내가 할 일을 스스로 생각하고<br>책임 있게 실천해요.</p>
+          </article>
+          <article class="cw-rule">
+            <div class="cw-rule-top"><span class="cw-rule-icon"><i data-lucide="sun" aria-hidden="true"></i></span><span class="cw-number">두 번째 약속</span></div>
+            <h2>긍정적인 어린이</h2>
+            <p>따뜻한 말과 밝은 마음으로<br>나와 친구를 응원해요.</p>
+          </article>
+          <article class="cw-rule">
+            <div class="cw-rule-top"><span class="cw-rule-icon"><i data-lucide="hand" aria-hidden="true"></i></span><span class="cw-number">세 번째 약속</span></div>
+            <h2>적극적인 어린이</h2>
+            <p>궁금한 것은 질문하고<br>새로운 일에 용기 있게 도전해요.</p>
+          </article>
+          <article class="cw-rule">
+            <div class="cw-rule-top"><span class="cw-rule-icon"><i data-lucide="heart-handshake" aria-hidden="true"></i></span><span class="cw-number">네 번째 약속</span></div>
+            <h2>배려하는 어린이</h2>
+            <p>친구의 마음을 생각하고<br>서로 존중하며 도와요.</p>
+          </article>
+        </div>
+        <p class="cw-divider-label">오늘의 우리 반</p>
+        <nav class="cw-menu" aria-label="학급 활동">
+          <button type="button" class="cw-menu-button cursor-interaction" data-cw-target="praise"><i data-lucide="flower-2" aria-hidden="true"></i><span>내 칭찬판</span><span class="cw-arrow" aria-hidden="true">↗</span></button>
+          <button type="button" class="cw-menu-button cursor-interaction" data-cw-target="team"><i data-lucide="users" aria-hidden="true"></i><span>우리 모둠</span><span class="cw-arrow" aria-hidden="true">↗</span></button>
+          <button type="button" class="cw-menu-button cursor-interaction" data-cw-target="temperature"><i data-lucide="thermometer" aria-hidden="true"></i><span>학급온도계</span><span class="cw-arrow" aria-hidden="true">↗</span></button>
+          <button type="button" class="cw-menu-button cursor-interaction" data-cw-target="awards"><i data-lucide="award" aria-hidden="true"></i><span>칭찬 소식</span><span class="cw-arrow" aria-hidden="true">↗</span></button>
+          <button type="button" class="cw-menu-button cursor-interaction" data-cw-target="letter"><i data-lucide="mail" aria-hidden="true"></i><span>비밀편지</span><span class="cw-arrow" aria-hidden="true">↗</span></button>
+        </nav>
+        <p class="cw-footer">완벽하지 않아도 괜찮아. 오늘도 한 걸음씩!</p>
+      </section>
+      <section data-cw-view="detail" hidden aria-label="학급 활동 미리보기">
+        <button class="cw-back cursor-interaction" type="button" data-cw-home><i data-lucide="arrow-left" aria-hidden="true"></i>학급 규칙으로 돌아가기</button>
+        <div class="cw-demo"><label><input type="checkbox" data-cw-teacher>선생님 체험 모드</label><span>샘플 · 실제 기록은 저장되지 않아요</span></div>
+        <nav class="cw-tabs" aria-label="칭찬 프로그램">
+          <button type="button" class="cw-tab cursor-interaction" data-cw-target="praise">개인칭찬</button>
+          <button type="button" class="cw-tab cursor-interaction" data-cw-target="team">모둠칭찬</button>
+          <button type="button" class="cw-tab cursor-interaction" data-cw-target="temperature">학급온도계</button>
+        </nav>
+        <div>
+          <h2 class="cw-detail-title" data-cw-title></h2>
+          <p class="cw-detail-lead" data-cw-lead></p>
+          <div class="cw-empty" data-cw-empty><strong data-cw-empty-title></strong><p data-cw-empty-copy></p></div>
+          <section data-cw-board-section hidden aria-label="영역별 스탬프 판">
+            <div class="cw-tabs" data-cw-area-tabs aria-label="칭찬 영역"></div>
+            <div class="cw-board">
+              <div class="cw-board-head"><h3 data-cw-board-title></h3><span data-cw-count></span></div>
+              <ol class="cw-stamps" data-cw-stamps aria-label="스탬프 칸"></ol>
+              <div class="cw-actions"><button type="button" class="cw-action cw-action-primary cursor-interaction" data-cw-grant disabled>칭찬 도장 +1</button><button type="button" class="cw-action cursor-interaction" data-cw-undo disabled>마지막 도장 취소</button></div>
+              <p class="cw-note" data-cw-board-note></p>
+            </div>
+          </section>
+          <section data-cw-temperature-section hidden aria-label="학급온도계와 온도별 보상">
+            <div class="cw-meter">
+              <p class="cw-degrees" data-cw-degrees>0도</p>
+              <div class="cw-thermometer">
+                <div class="cw-progress" role="progressbar" aria-label="학급온도" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-cw-progress><div class="cw-fill" data-cw-fill></div></div>
+                <div class="cw-bulb" aria-hidden="true"></div><div class="cw-stem" aria-hidden="true"></div>
+                <div class="cw-scale" data-cw-scale aria-hidden="true"></div>
+              </div>
+              <div class="cw-actions"><button type="button" class="cw-action cw-action-primary cursor-interaction" data-cw-warm disabled>우리 반 칭찬 +5도</button><button type="button" class="cw-action cursor-interaction" data-cw-cool disabled>마지막 칭찬 취소</button></div>
+              <p class="cw-note" data-cw-temperature-note>반 전체가 잘했을 때 선생님이 칭찬해요.</p>
+            </div>
+            <h3 class="cw-reward-heading">함께 정하는 보상</h3>
+            <p class="cw-note">5도마다 어떤 보상을 받을지 학생들과 함께 정해요.</p>
+            <div class="cw-rewards" data-cw-rewards></div>
+          </section>
+        </div>
+        <p class="cw-note" data-cw-status role="status" aria-live="polite"></p>
+      </section>
+    </main>
+  </div>
+  <script>
+    (() => {
+      const root = document.getElementById('classroom-welcome-sample');
+      const find = name => root.querySelector('[data-cw-' + name + ']');
+      const personal = ['자주적', '긍정적', '적극적', '배려'];
+      const team = ['정리', '다했어요'];
+      const records = { praise: personal.map(() => []), team: team.map(() => []) };
+      const chosen = { praise: 0, team: 0 };
+      let screen = 'home';
+      let temperature = 0;
+      const isTeacher = () => find('teacher').checked;
+      const dateLabel = () => new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Seoul', month: '2-digit', day: '2-digit' }).format(new Date());
+      const views = {
+        praise: ['내 칭찬판', '이번 학기 · 네 영역마다 30개의 작은 실천을 모아요.', '', ''],
+        team: ['모둠 칭찬판', '이번 학기 · 정리 15칸, 다했어요 15칸을 함께 채워요.', '', ''],
+        temperature: ['우리 반 학급온도계', '우리 모두 잘했어요! 칭찬 한 번에 5도씩 올라가요.', '', ''],
+        awards: ['칭찬 소식', '우리 친구들의 멋진 순간을 함께 축하해요.', '새로운 칭찬 소식을 기다려요', '선생님이 발표한 이번 주 수상 소식이 여기에 보여요.'],
+        letter: ['비밀편지', '선생님께 전하고 싶은 이야기를 담는 곳이에요.', '아직 주고받은 편지가 없어요', '내 편지와 선생님의 답글은 나와 선생님만 볼 수 있어요.']
+      };
+      function renderBoard() {
+        if (!records[screen]) return;
+        const labels = screen === 'praise' ? personal : team;
+        const limit = screen === 'praise' ? 30 : 15;
+        const dates = records[screen][chosen[screen]];
+        find('board-title').textContent = labels[chosen[screen]];
+        find('count').textContent = dates.length + ' / ' + limit;
+        const tabs = find('area-tabs');
+        tabs.replaceChildren();
+        labels.forEach((label, index) => {
+          const button = document.createElement('button');
+          button.type = 'button'; button.className = 'cw-tab cursor-interaction';
+          button.textContent = label + ' ' + records[screen][index].length + '/' + limit;
+          button.setAttribute('aria-pressed', String(index === chosen[screen]));
+          button.addEventListener('click', () => { chosen[screen] = index; renderBoard(); find('area-tabs').children[index].focus({ preventScroll: true }); });
+          tabs.append(button);
+        });
+        const stamps = find('stamps');
+        stamps.replaceChildren();
+        for (let i = 0; i < limit; i++) {
+          const cell = document.createElement('li'); cell.className = 'cw-stamp';
+          cell.dataset.filled = String(i < dates.length);
+          cell.setAttribute('aria-label', (i + 1) + '번 ' + (dates[i] ? dates[i] + ' 칭찬' : '빈칸'));
+          if (dates[i]) {
+            const mark = document.createElement('b'); mark.textContent = '✓'; mark.setAttribute('aria-hidden', 'true');
+            const date = document.createElement('small'); date.textContent = dates[i];
+            cell.append(mark, date);
+          } else cell.textContent = String(i + 1);
+          stamps.append(cell);
+        }
+        find('grant').disabled = !isTeacher() || dates.length >= limit;
+        find('undo').disabled = !isTeacher() || dates.length === 0;
+        find('board-note').textContent = dates.length === limit ? '이번 학기 ' + labels[chosen[screen]] + ' 칭찬판을 완성했어요!' : (isTeacher() ? '체험 모드에서 도장을 찍어 보세요. 각 영역은 따로 쌓여요.' : '선생님이 칭찬하면 날짜가 적힌 도장이 생겨요.');
+      }
+      for (let degree = 5; degree <= 100; degree += 5) {
+        const cell = document.createElement('div'); cell.className = 'cw-reward'; cell.dataset.degree = String(degree);
+        const label = document.createElement('label'); label.htmlFor = 'cw-reward-' + degree;
+        const name = document.createElement('span'); name.textContent = degree + '도';
+        const reached = document.createElement('small'); reached.dataset.reachedLabel = ''; reached.textContent = '';
+        label.append(name, reached);
+        const input = document.createElement('textarea'); input.id = label.htmlFor; input.rows = 2; input.maxLength = 200; input.value = ''; input.readOnly = true; input.setAttribute('aria-label', degree + '도 보상 내용');
+        cell.append(label, input); find('rewards').append(cell);
+      }
+      function renderTemperature() {
+        find('degrees').textContent = temperature + '도';
+        find('progress').setAttribute('aria-valuenow', String(temperature));
+        find('fill').style.height = temperature + '%';
+        find('warm').disabled = !isTeacher() || temperature >= 100;
+        find('cool').disabled = !isTeacher() || temperature === 0;
+        find('temperature-note').textContent = temperature === 100 ? '우리 반이 100도에 도달했어요! 함께 정한 보상을 확인해요.' : '반 전체가 잘했을 때 선생님이 칭찬해요.';
+        find('rewards').querySelectorAll('.cw-reward').forEach(cell => {
+          const reached = Number(cell.dataset.degree) <= temperature;
+          cell.dataset.reached = String(reached);
+          cell.querySelector('[data-reached-label]').textContent = reached ? '도달' : '';
+          cell.querySelector('textarea').readOnly = !isTeacher();
+        });
+      }
+      function show(nextScreen, persist) {
+        screen = views[nextScreen] ? nextScreen : 'home';
+        const item = views[screen];
+        root.querySelector('[data-cw-view="home"]').hidden = !!item;
+        root.querySelector('[data-cw-view="detail"]').hidden = !item;
+        if (item) {
+          ['title', 'lead', 'empty-title', 'empty-copy'].forEach((name, i) => { root.querySelector('[data-cw-' + name + ']').textContent = item[i]; });
+          find('empty').hidden = !!records[screen] || screen === 'temperature';
+          find('board-section').hidden = !records[screen];
+          find('temperature-section').hidden = screen !== 'temperature';
+          root.querySelectorAll('.cw-tab[data-cw-target]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.cwTarget === screen)));
+          renderBoard(); renderTemperature();
+          find('status').textContent = '';
+        }
+        if (persist && window.openai && window.openai.setWidgetState) {
+          window.openai.setWidgetState({ modelContent: { screen: item ? screen : 'home' }, privateContent: null }).catch(() => {});
+        }
+      }
+      find('teacher').addEventListener('change', () => { renderBoard(); renderTemperature(); find('status').textContent = isTeacher() ? '선생님 체험 모드예요. 샘플에 칭찬을 더해 보세요.' : '학생 보기로 바꿨어요.'; });
+      find('grant').addEventListener('click', () => {
+        if (!isTeacher() || !records[screen]) return;
+        const dates = records[screen][chosen[screen]], limit = screen === 'praise' ? 30 : 15;
+        if (dates.length >= limit) return;
+        dates.push(dateLabel()); renderBoard(); find('status').textContent = '칭찬 도장을 하나 찍었어요. ' + dates.length + ' / ' + limit;
+      });
+      find('undo').addEventListener('click', () => {
+        if (!isTeacher() || !records[screen]) return;
+        const dates = records[screen][chosen[screen]];
+        if (!dates.length) return;
+        dates.pop(); renderBoard(); find('status').textContent = '마지막 도장을 취소했어요.';
+      });
+      find('warm').addEventListener('click', () => { if (!isTeacher() || temperature >= 100) return; temperature += 5; renderTemperature(); find('status').textContent = '우리 반 온도가 ' + temperature + '도가 되었어요.'; });
+      find('cool').addEventListener('click', () => { if (!isTeacher() || temperature === 0) return; temperature -= 5; renderTemperature(); find('status').textContent = '마지막 칭찬을 취소했어요. 현재 ' + temperature + '도예요.'; });
+      root.querySelectorAll('[data-cw-target]').forEach(button => button.addEventListener('click', () => {
+        show(button.dataset.cwTarget, true);
+        root.querySelector('.cw-back').focus({ preventScroll: true });
+      }));
+      root.querySelectorAll('[data-cw-home]').forEach(button => button.addEventListener('click', () => {
+        show('home', true);
+        root.querySelector('.cw-brand').focus({ preventScroll: true });
+      }));
+      delete views.praise; delete views.awards; delete views.letter;
+      root.querySelectorAll('[data-cw-target="praise"], [data-cw-target="awards"], [data-cw-target="letter"]').forEach(button => button.remove());
+      const main = root.querySelector('main');
+      main.prepend(root.querySelector('.cw-demo'));
+      main.append(find('status'));
+      for (let degree = 0; degree <= 100; degree += 5) {
+        const tick = document.createElement('span'); tick.className = 'cw-tick';
+        tick.style.bottom = degree + '%'; tick.dataset.major = String(degree % 10 === 0);
+        tick.textContent = degree % 10 === 0 ? degree + '도' : '';
+        find('scale').append(tick);
+      }
+      const personalBoards = [];
+      root.querySelectorAll('.cw-rule').forEach((card, index) => {
+        const container = document.createElement('section'); container.className = 'cw-personal';
+        container.setAttribute('aria-label', personal[index] + ' 내 칭찬판'); card.append(container);
+        personalBoards.push(container);
+      });
+      function renderPersonal() {
+        personalBoards.forEach((container, index) => {
+          const dates = records.praise[index]; container.replaceChildren();
+          const head = document.createElement('div'); head.className = 'cw-board-head';
+          const label = document.createElement('span'); label.textContent = '내 칭찬판 · ' + personal[index] + ' · 이번 학기';
+          const count = document.createElement('span'); count.textContent = dates.length + ' / 30'; head.append(label, count);
+          const list = document.createElement('ol'); list.className = 'cw-stamps';
+          for (let i=0;i<30;i++) {
+            const cell = document.createElement('li'); cell.className = 'cw-stamp'; cell.dataset.filled = String(i<dates.length);
+            cell.setAttribute('aria-label', (i+1) + '번 ' + (dates[i] || '빈칸'));
+            if (dates[i]) { const mark=document.createElement('b'); mark.textContent='✓'; const date=document.createElement('small'); date.textContent=dates[i]; cell.append(mark,date); }
+            else cell.textContent=String(i+1);
+            list.append(cell);
+          }
+          const actions=document.createElement('div'); actions.className='cw-actions';
+          [1,-1].forEach(delta=>{
+            const button=document.createElement('button'); button.type='button'; button.className='cw-action cursor-interaction';
+            button.textContent=delta===1?'칭찬 도장 +1':'마지막 도장 취소';
+            button.setAttribute('aria-label',personal[index]+' '+button.textContent);
+            button.disabled=!isTeacher() || (delta===1?dates.length>=30:dates.length===0);
+            button.addEventListener('click',()=>{
+              if(!isTeacher() || (delta===1?dates.length>=30:dates.length===0))return;
+              if(delta===1)dates.push(dateLabel());else dates.pop();
+              renderPersonal(); find('status').textContent=personal[index]+' '+dates.length+' / 30';
+              const next=container.querySelectorAll('button')[delta===1?0:1]; if(!next.disabled)next.focus({preventScroll:true});
+            }); actions.append(button);
+          }); container.append(head,list,actions);
+        });
+      }
+      find('teacher').addEventListener('change',renderPersonal);
+      renderPersonal();
+      show(window.openai?.widgetState?.modelContent?.screen || 'home', false);
+      window.addEventListener('openai:set_globals', event => {
+        const state = event.detail?.globals?.widgetState;
+        if (state) show(state.modelContent?.screen || 'home', false);
+      });
+    })();
+  </script>
+</div>

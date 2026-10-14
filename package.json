@@ -1,0 +1,9 @@
+{
+  "name": "20261014-teacherlab",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Classroom praise app planning documents and interactive prototype",
+  "scripts": {
+    "test": "node \"261012 티처랩/docs/qa/check-classroom-demo.cjs\" samples/classroom-login.fragment.html"
+  }
+}
