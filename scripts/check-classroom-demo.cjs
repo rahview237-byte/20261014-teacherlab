@@ -15,7 +15,7 @@ let passed = 0;
 function test(name, fn) { fn(); passed++; console.log('PASS ' + name); }
 function setup() {
   let day = '2026-10-13';
-  const m = context.createClassroomDemo({ today: () => day, random: () => '0123' });
+  const m = context.createClassroomDemo({ today: () => day });
   return { m, nextDay: () => { day = '2026-10-14'; } };
 }
 const loginTeacher = m => m.login('teacher', '', 'teacher2026!');
@@ -33,29 +33,31 @@ test('Script syntax and four-digit PIN validation', () => {
 });
 test('Student cannot access teacher actions or another student records', () => {
   const {m} = setup(); loginStudent(m);
-  for (const operation of [() => m.teacherCode(), () => m.bulk(0), () => m.roster(), () => m.history(), () => m.resetPin('s2','1234'), () => m.cancel(1), () => m.warm(5), () => m.group(0,1)]) assert.throws(operation);
+  for (const operation of [() => m.bulk(0), () => m.roster(), () => m.history(), () => m.resetPin('s2','1234'), () => m.cancel(1), () => m.warm(5), () => m.group(0,1)]) assert.throws(operation);
   assert.equal(m.my().id, 's1');
   m.logout(); assert.throws(() => m.my());
 });
-test('Wrong praise code does not earn a stamp; two claims across all areas', () => {
-  const {m} = setup(); loginTeacher(m); const code = m.teacherCode().value;
-  assert.equal(code, '0123'); loginStudent(m);
-  assert.throws(() => m.claim(0, '9999')); assert.equal(m.my().used, 0);
-  m.claim(0, code); m.claim(1, code);
-  assert.equal(m.my().used, 2); assert.equal(m.my().counts[0], 1); assert.equal(m.my().counts[1], 1);
-  assert.throws(() => m.claim(2, code));
-  loginStudent(m,'s2','2345'); assert.equal(m.my().used,0); assert.equal(m.my().counts[0],0);
+test('Direct claims allow two per area, eight total, without a code', () => {
+  const {m}=setup();loginStudent(m);
+  for(let area=0;area<4;area++){
+    m.claim(area);m.claim(area);assert.equal(m.my().usedByArea[area],2);
+    assert.throws(()=>m.claim(area));
+  }
+  assert.equal(m.my().used,8);
+  loginStudent(m,'s2','2345');assert.equal(m.my().used,0);m.claim(0);assert.equal(m.my().counts[0],1);
+  m.logout();assert.throws(()=>m.claim(0));
 });
-test('Cancellation does not restore daily allowance or allow double cancellation', () => {
-  const {m} = setup(); loginTeacher(m); const code=m.teacherCode().value; loginStudent(m);
-  m.claim(0,code);m.claim(1,code);m.logout();loginTeacher(m);
+test('Cancellation keeps the used area allowance and leaves other areas available', () => {
+  const {m}=setup();loginStudent(m);m.claim(0);m.claim(0);m.logout();loginTeacher(m);
   const id=m.history()[0].id;m.cancel(id);assert.throws(()=>m.cancel(id));
-  loginStudent(m);assert.equal(m.my().used,2);assert.throws(()=>m.claim(2,code));
+  loginStudent(m);assert.equal(m.my().usedByArea[0],2);assert.throws(()=>m.claim(0));m.claim(1);
 });
-test('Korean date boundary rotates code and resets daily usage without losing totals', () => {
-  const {m,nextDay}=setup();loginTeacher(m);const old=m.teacherCode().value;loginStudent(m);m.claim(0,old);m.claim(0,old);
-  nextDay();assert.equal(m.my().used,0);assert.equal(m.my().counts[0],2);assert.throws(()=>m.claim(1,old));
-  m.logout();loginTeacher(m);const fresh=m.teacherCode().value;assert.notEqual(fresh,old);loginStudent(m);m.claim(1,fresh);assert.equal(m.my().used,1);
+test('Korean date boundary resets every area allowance and preserves totals', () => {
+  const {m,nextDay}=setup();loginStudent(m);
+  for(let area=0;area<4;area++){m.claim(area);m.claim(area);}
+  nextDay();assert.equal(m.my().used,0);
+  for(let area=0;area<4;area++){assert.equal(m.my().counts[area],2);assert.equal(m.my().usedByArea[area],0);m.claim(area);m.claim(area);}
+  assert.equal(m.my().used,8);
 });
 test('Bulk awards affect every student and do not consume self-claim quota', () => {
   const {m}=setup();loginTeacher(m);assert.equal(m.bulk(2).granted,3);
@@ -63,9 +65,9 @@ test('Bulk awards affect every student and do not consume self-claim quota', () 
   loginStudent(m);assert.equal(m.my().counts[2],1);
 });
 test('Thirty-stamp ceiling and bulk skip counts', () => {
-  const {m}=setup();loginTeacher(m);const code=m.teacherCode().value;
+  const {m}=setup();loginTeacher(m);
   for(let i=0;i<29;i++)m.bulk(0);
-  loginStudent(m);m.claim(0,code);assert.throws(()=>m.claim(0,code));assert.equal(m.my().used,1);
+  loginStudent(m);m.claim(0);assert.throws(()=>m.claim(0));assert.equal(m.my().used,1);
   m.logout();loginTeacher(m);const result=m.bulk(0);assert.equal(result.granted,2);assert.equal(result.skipped,1);
   assert.equal(m.bulk(0).granted,0);for(const s of m.roster())assert.equal(s.counts[0],30);
 });
@@ -87,6 +89,7 @@ test('Group ceilings and thermometer five-degree bounds', () => {
 test('Production-free mockup does not persist credentials or make API calls', () => {
   assert.ok(!/localStorage|sessionStorage|fetch\(|XMLHttpRequest|WebSocket/.test(script));
   assert.ok(!html.includes('마지막 칭찬취소'));
+  assert.ok(!/teacherCode|data-claim-code|칭찬 코드/.test(html));
   assert.ok(html.includes('repeat(30,minmax(0,1fr))'));
 });
 console.log(`${passed} checks passed. Browser rendering and server security were not tested.`);
